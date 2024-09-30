@@ -1,4 +1,43 @@
 {
+   
+   
+   
+   
+    "kathmandu_to_pokhara" : [{ "from":"kathmandu","pickup":"kathmandu",
+                                "to":"pokhara","dropoff":"pokhara",
+                                "stime":"8:05am","etime":"4:05pm",
+                                "price":290,"bustype":"deluxe"},
+
+                                { "from":"kathmandu","pickup":"kathmandu",
+                                "to":"pokhara","dropoff":"pokhara",
+                                "stime":"11:59pm","etime":"7:59am",
+                                "price":290,"bustype":"classic"},
+
+                                { "from":"kathmandu","pickup":"kathmandu",
+                                "to":"pokhara","dropoff":"pokhara",
+                                "stime":"7:35am","etime":"3:35pm",
+                                "price":290,"bustype":"deluxe"}
+                               ],
+
+   
+    "pokhara_to_kathmandu" : [{ "from":"kathmandu","pickup":"kathmandu",
+                                "to":"pokhara","dropoff":"pokhara",
+                                "stime":"8:05am","etime":"4:05pm",
+                                "price":290,"bustype":"deluxe"},
+
+                                { "from":"kathmandu","pickup":"kathmandu",
+                                "to":"pokhara","dropoff":"pokhara",
+                                "stime":"11:59pm","etime":"7:59am",
+                                "price":290,"bustype":"classic"},
+
+                                { "from":"kathmandu","pickup":"kathmandu",
+                                "to":"pokhara","dropoff":"pokhara",
+                                "stime":"7:35am","etime":"3:35pm",
+                                "price":290,"bustype":"deluxe"}
+                               ],
+
+   
+   
     "cairo_to_hurghada" : [ { "from":"cairo","pickup":"tahrir",
                             "to":"hurghada","dropoff":"hurghada",
                             "stime":"12:15am","etime":"7:15am",
@@ -257,6 +296,7 @@
                                 "to":"hurghada","dropoff":"hurghada",
                                 "stime":"8:05am","etime":"4:05pm",
                                 "price":290,"bustype":"deluxe"},
+
                                 { "from":"alexandria","pickup":"moharam bek",
                                 "to":"hurghada","dropoff":"hurghada",
                                 "stime":"11:59pm","etime":"7:59am",
