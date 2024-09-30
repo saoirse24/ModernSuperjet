@@ -17,6 +17,9 @@ document.getElementById('passdteone').innerText =getfristdate; //pass right
 document.getElementById('passdatetwo').innerText=getlastdate;
 document.getElementById('passdtetwo').innerText =getlastdate;
 
+var kathtopokh;
+var pokhtokath;
+
 var cairotohurg;
 var hurgtocairo;
 var alextohurg;
@@ -79,15 +82,32 @@ var sintoghr;
 var ghrtosuz;
 var sintonuw;
 
+
+
 //////////////////////////////////////////
 var myRequest = new XMLHttpRequest();
 myRequest.open("GET", "https://marimezz.github.io/api/data.json");
 myRequest.send();
 
+
+
 myRequest.addEventListener("readystatechange",myfunction);
 function myfunction(){
     if(myRequest.readyState == 4 && myRequest.status ==200)
     {
+        
+
+        kathtopokh = JSON.parse( myRequest.response).kathmandu_to_pokhara;
+        if( getfirstloc=='Kathmandu' && getlastloc=='Pokhara')
+        {
+        kathtopokhf()
+        }
+        pokhtokath = JSON.parse( myRequest.response).pokhara_to_kathmandu;
+        if( getfirstloc=='Pokhara' && getlastloc=='Kathmandu')
+        {
+        pokhtokathf()
+        }
+
         cairotohurg = JSON.parse( myRequest.response).cairo_to_hurghada;
         if( getfirstloc=='Cairo' && getlastloc=='Hurghada')
         {
@@ -457,22 +477,22 @@ function myfunction(){
 }
 
 
-function cairotohurgf()
+function kathtopokhf()
 {
     
     var cartoona=``;
     
 
 
-    for(var i=0; i<cairotohurg.length; i++)
+    for(var i=0; i<kathtopokh.length; i++)
     {
        
         cartoona+=`<div class="ticketbody" id="tic-`+i+`">
                     
                         <div class="fromticket">
                             <p> From </p>
-                            <p id="locfrom"> ${cairotohurg[i].pickup} </p>
-                            <p id="timefrom"> ${cairotohurg[i].stime} </p>
+                            <p id="locfrom"> ${kathtopokh[i].pickup} </p>
+                            <p id="timefrom"> ${kathtopokh[i].stime} </p>
                         </div>
 
                         <img src="bus.png" class="iconbus"/>
@@ -480,8 +500,8 @@ function cairotohurgf()
                         <div class="toticket"> 
 
                             <p> To </p>
-                            <p id="locto"> ${cairotohurg[i].dropoff} </p>
-                            <p id="timeto"> ${cairotohurg[i].etime} </p>
+                            <p id="locto"> ${kathtopokh[i].dropoff} </p>
+                            <p id="timeto"> ${kathtopokh[i].etime} </p>
 
                         </div>
 
@@ -494,36 +514,36 @@ function cairotohurgf()
 
                         <div class="priceofticket"> 
 
-                            <p id="pricetic"> ${cairotohurg[i].price}EGP </p>
+                            <p id="pricetic"> ${kathtopokh[i].price}EGP </p>
                             <p> for a seat </p>
 
                         </div>
                         <a href="../PART 2/seat.html" class="selectbutton">SELECT</a> 
-                        <p id="typpe"> ${cairotohurg[i].bustype}</p>
+                        <p id="typpe"> ${kathtopokh[i].bustype}</p>
 
                         </div>
             <br>
         `
     }
     document.getElementById('myrow').innerHTML = cartoona;
-    for(var y=0; y<cairotohurg.length; y++)
+    for(var y=0; y<kathtopokh.length; y++)
             {
-                if(cairotohurg[y].bustype=='classic')
+                if(kathtopokh[y].bustype=='classic')
                 {
                     document.querySelector('#tic-'+y).style.borderRight='15px solid #9AD3BC';
                 }
-                else if(cairotohurg[y].bustype=='deluxe')
+                else if(kathtopokh[y].bustype=='deluxe')
                 {
                     document.querySelector('#tic-'+y).style.borderRight='15px solid #F5B461';
                 }
-                else if(cairotohurg[y].bustype=='elite')
+                else if(kathtopokh[y].bustype=='elite')
                 {
                     document.querySelector('#tic-'+y).style.borderRight='15px solid #FBF46D';
                 }
             }
-    document.getElementById('allbtnfilter').addEventListener("click", cairotohurgf);
+    document.getElementById('allbtnfilter').addEventListener("click", kathtopokhf);
     document.getElementById('classicbtnfilter').addEventListener("click", function(){
-    var data_filter = cairotohurg.filter( element => element.bustype =="classic")
+    var data_filter = kathtopokh.filter( element => element.bustype =="classic")
     var cartoona2=``;
     for(var i=0; i<data_filter.length; i++)
     {
@@ -568,7 +588,7 @@ function cairotohurgf()
         `
     }
     document.getElementById('myrow').innerHTML = cartoona2;
-    for(var y=0; y<cairotohurg.length; y++)
+    for(var y=0; y<kathtopokh.length; y++)
             {
                 document.querySelector('#tic-'+y).style.borderRight='15px solid #9AD3BC';
                 const ticSelectButtons = document.querySelectorAll('.selectbutton');
@@ -607,7 +627,7 @@ function cairotohurgf()
             }
     });
     document.getElementById('deluxebtnfilter').addEventListener("click", function(){
-        var data_filter = cairotohurg.filter( element => element.bustype =="deluxe")
+        var data_filter = kathtopokh.filter( element => element.bustype =="deluxe")
         var cartoona2=``;
         for(var i=0; i<data_filter.length; i++)
         {
@@ -651,7 +671,7 @@ function cairotohurgf()
             `
         }
         document.getElementById('myrow').innerHTML = cartoona2;
-        for(var y=0; y<cairotohurg.length; y++)
+        for(var y=0; y<kathtopokh.length; y++)
             {
                 document.querySelector('#tic-'+y).style.borderRight='15px solid #F5B461';
                 const ticSelectButtons = document.querySelectorAll('.selectbutton');
@@ -690,7 +710,7 @@ function cairotohurgf()
             }
         });
         document.getElementById('elitebtnfilter').addEventListener("click", function(){
-            var data_filter = cairotohurg.filter( element => element.bustype =="elite")
+            var data_filter = kathtopokh.filter( element => element.bustype =="elite")
             var cartoona2=``;
             for(var i=0; i<data_filter.length; i++)
             {
@@ -735,7 +755,7 @@ function cairotohurgf()
                 `
             }
             document.getElementById('myrow').innerHTML = cartoona2;
-            for(var y=0; y<cairotohurg.length; y++)
+            for(var y=0; y<kathtopokh.length; y++)
             {
                 document.querySelector('#tic-'+y).style.borderRight='15px solid #FBF46D';
                 const ticSelectButtons = document.querySelectorAll('.selectbutton');
@@ -809,22 +829,23 @@ function cairotohurgf()
 
 }
 
-function hurgtocairof()
+
+function pokhtokathf()
 {
     
     var cartoona=``;
     
 
 
-    for(var i=0; i<hurgtocairo.length; i++)
+    for(var i=0; i<pokhtokath.length; i++)
     {
        
         cartoona+=`<div class="ticketbody" id="tic-`+i+`">
                     
                         <div class="fromticket">
                             <p> From </p>
-                            <p id="locfrom"> ${hurgtocairo[i].pickup} </p>
-                            <p id="timefrom"> ${hurgtocairo[i].stime} </p>
+                            <p id="locfrom"> ${pokhtokath[i].pickup} </p>
+                            <p id="timefrom"> ${pokhtokath[i].stime} </p>
                         </div>
 
                         <img src="bus.png" class="iconbus"/>
@@ -832,8 +853,8 @@ function hurgtocairof()
                         <div class="toticket"> 
 
                             <p> To </p>
-                            <p id="locto"> ${hurgtocairo[i].dropoff} </p>
-                            <p id="timeto"> ${hurgtocairo[i].etime} </p>
+                            <p id="locto"> ${pokhtokath[i].dropoff} </p>
+                            <p id="timeto"> ${pokhtokath[i].etime} </p>
 
                         </div>
 
@@ -846,36 +867,36 @@ function hurgtocairof()
 
                         <div class="priceofticket"> 
 
-                            <p id="pricetic"> ${hurgtocairo[i].price}EGP </p>
+                            <p id="pricetic"> ${pokhtokath[i].price}EGP </p>
                             <p> for a seat </p>
 
                         </div>
                         <a href="../PART 2/seat.html" class="selectbutton">SELECT</a> 
-                        <p id="typpe"> ${hurgtocairo[i].bustype}</p>
+                        <p id="typpe"> ${pokhtokath[i].bustype}</p>
 
                         </div>
             <br>
         `
     }
     document.getElementById('myrow').innerHTML = cartoona;
-    for(var y=0; y<hurgtocairo.length; y++)
+    for(var y=0; y<pokhtokath.length; y++)
             {
-                if(hurgtocairo[y].bustype=='classic')
+                if(pokhtokath[y].bustype=='classic')
                 {
                     document.querySelector('#tic-'+y).style.borderRight='15px solid #9AD3BC';
                 }
-                else if(hurgtocairo[y].bustype=='deluxe')
+                else if(pokhtokath[y].bustype=='deluxe')
                 {
                     document.querySelector('#tic-'+y).style.borderRight='15px solid #F5B461';
                 }
-                else if(hurgtocairo[y].bustype=='elite')
+                else if(pokhtokath[y].bustype=='elite')
                 {
                     document.querySelector('#tic-'+y).style.borderRight='15px solid #FBF46D';
                 }
             }
-    document.getElementById('allbtnfilter').addEventListener("click", hurgtocairof);
+    document.getElementById('allbtnfilter').addEventListener("click", pokhtokathf);
     document.getElementById('classicbtnfilter').addEventListener("click", function(){
-    var data_filter = hurgtocairo.filter( element => element.bustype =="classic")
+    var data_filter = pokhtokath.filter( element => element.bustype =="classic")
     var cartoona2=``;
     for(var i=0; i<data_filter.length; i++)
     {
@@ -920,7 +941,7 @@ function hurgtocairof()
         `
     }
     document.getElementById('myrow').innerHTML = cartoona2;
-    for(var y=0; y<hurgtocairo.length; y++)
+    for(var y=0; y<pokhtokath.length; y++)
             {
                 document.querySelector('#tic-'+y).style.borderRight='15px solid #9AD3BC';
                 const ticSelectButtons = document.querySelectorAll('.selectbutton');
@@ -959,7 +980,7 @@ function hurgtocairof()
             }
     });
     document.getElementById('deluxebtnfilter').addEventListener("click", function(){
-        var data_filter = hurgtocairo.filter( element => element.bustype =="deluxe")
+        var data_filter = pokhtokath.filter( element => element.bustype =="deluxe")
         var cartoona2=``;
         for(var i=0; i<data_filter.length; i++)
         {
@@ -1003,7 +1024,7 @@ function hurgtocairof()
             `
         }
         document.getElementById('myrow').innerHTML = cartoona2;
-        for(var y=0; y<hurgtocairo.length; y++)
+        for(var y=0; y<pokhtokath.length; y++)
             {
                 document.querySelector('#tic-'+y).style.borderRight='15px solid #F5B461';
                 const ticSelectButtons = document.querySelectorAll('.selectbutton');
@@ -1042,7 +1063,7 @@ function hurgtocairof()
             }
         });
         document.getElementById('elitebtnfilter').addEventListener("click", function(){
-            var data_filter = hurgtocairo.filter( element => element.bustype =="elite")
+            var data_filter = pokhtokath.filter( element => element.bustype =="elite")
             var cartoona2=``;
             for(var i=0; i<data_filter.length; i++)
             {
@@ -1087,7 +1108,7 @@ function hurgtocairof()
                 `
             }
             document.getElementById('myrow').innerHTML = cartoona2;
-            for(var y=0; y<hurgtocairo.length; y++)
+            for(var y=0; y<pokhtokath.length; y++)
             {
                 document.querySelector('#tic-'+y).style.borderRight='15px solid #FBF46D';
                 const ticSelectButtons = document.querySelectorAll('.selectbutton');
